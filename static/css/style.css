@@ -24,6 +24,9 @@ h1 {
 
 #controls {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 #scene-container {
@@ -67,6 +70,54 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     z-index: 1001;
     display: none;
+}
+
+#happiness-meter {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 30px;
+    height: 200px;
+    background-color: rgba(221, 221, 221, 0.7);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+#happiness-bar {
+    width: 100%;
+    background: linear-gradient(to top, #FF69B4, #FF1493);
+    transition: height 0.1s linear;
+    position: absolute;
+    bottom: 0;
+    height: 50%; /* Initial happiness level */
+}
+
+#happiness-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    z-index: 1001;
+}
+
+#feed-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#feed-button:hover {
+    background-color: #45a049;
 }
 
 .sparkle {

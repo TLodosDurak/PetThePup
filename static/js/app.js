@@ -6,13 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const breedSelect = document.getElementById('breed-select');
     const colorPicker = document.getElementById('color-picker');
     const sizeSlider = document.getElementById('size-slider');
+    const feedButton = document.getElementById('feed-button');
+    const happinessBar = document.getElementById('happiness-bar');
     let dogModel;
     let progress = 100;
+    let happiness = 50; // Initial happiness level
     let isMouseOverDog = false;
     let isMouseMoving = false;
     let lastMousePosition = { x: 0, y: 0 };
-
-    
 
     // Initialize the 3D scene
     const { scene, camera, renderer, controls, raycaster, mouse } = initScene(sceneContainer);
@@ -127,6 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
         adjustModelSize(size);
     });
 
+    // Handle feed button click
+    feedButton.addEventListener('click', () => {
+        if (dogModel) {
+            feedDog();
+        }
+    });
+
     function showErrorMessage(message) {
         const errorElement = document.createElement('div');
         errorElement.textContent = message;
@@ -201,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         updateProgressBar();
+        updateHappinessBar();
         isMouseMoving = false; // Reset the mouse moving flag
     }
     animate();
@@ -228,7 +237,67 @@ document.addEventListener('DOMContentLoaded', () => {
     function petDog() {
         if (dogModel && isMouseOverDog) {
             dogModel.rotation.y = Math.sin(Date.now() * 0.005) * 0.1;
+            happiness = Math.min(happiness + 0.1, 100); // Increase happiness when petting
         }
+    }
+
+    function feedDog() {
+        if (dogModel) {
+            happiness = Math.min(happiness + 15, 100); // Increase happiness significantly when feeding
+            createFoodParticles();
+            dogModel.rotation.z = Math.sin(Date.now() * 0.01) * 0.2; // Make the dog "jump" with excitement
+            setTimeout(() => {
+                dogModel.rotation.z = 0; // Reset the dog's rotation after a short delay
+            }, 500);
+        }
+    }
+
+    function createFoodParticles() {
+        const particleCount = 20;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount; i++) {
+            const x = (Math.random() - 0.5) * 2;
+            const y = Math.random() * 2;
+            const z = (Math.random() - 0.5) * 2;
+
+            positions[i * 3] = x;
+            positions[i * 3 + 1] = y;
+            positions[i * 3 + 2] = z;
+
+            colors[i * 3] = Math.random();
+            colors[i * 3 + 1] = Math.random();
+            colors[i * 3 + 2] = Math.random();
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.1,
+            vertexColors: true,
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        particles.position.copy(dogModel.position);
+        scene.add(particles);
+
+        // Animate particles
+        const animateParticles = () => {
+            particles.rotation.y += 0.01;
+            particles.position.y += 0.01;
+            particles.material.opacity -= 0.02;
+
+            if (particles.material.opacity <= 0) {
+                scene.remove(particles);
+            } else {
+                requestAnimationFrame(animateParticles);
+            }
+        };
+
+        animateParticles();
     }
 
     function updateProgressBar() {
@@ -249,9 +318,11 @@ document.addEventListener('DOMContentLoaded', () => {
             fullText.style.display = 'none';
             removeSparkles();
         }
+    }
 
-        // Log progress for debugging
-        console.log('Progress:', progress, 'Display Progress:', displayProgress, 'Full text visible:', fullText.style.display);
+    function updateHappinessBar() {
+        happiness = Math.max(happiness - 0.02, 0); // Slowly decrease happiness over time
+        happinessBar.style.height = `${happiness}%`;
     }
 
     function createSparkles() {
