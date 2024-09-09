@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe - Virtual 3D Dog Petting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Subscribe to Premium Features</h1>
+        <p>Unlock all features by subscribing for just $10/month!</p>
+        <ul>
+            <li>Choose from multiple dog breeds</li>
+            <li>Customize your dog's color</li>
+            <li>Adjust your dog's size</li>
+            <li>Feed your dog and increase its happiness</li>
+        </ul>
+        <form action="{{ url_for('subscribe') }}" method="post" id="subscription-form">
+            <button type="submit" id="checkout-button">Subscribe Now</button>
+        </form>
+        <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+    </div>
+    <script>
+        var stripe = Stripe('{{ stripe_publishable_key }}');
+        var checkoutButton = document.getElementById('checkout-button');
+        
+        checkoutButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch('/subscribe', {
+                method: 'POST',
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(session) {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function(result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

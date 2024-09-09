@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
         }
     }
-    
+
     function loadModel(breed) {
         showLoadingIndicator();
         checkModelExists(breed).then(exists => {
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         errorElement.style.borderRadius = '5px';
         errorElement.style.zIndex = '1000';
         sceneContainer.appendChild(errorElement);
-        
+
         // Remove the error message when clicking on it
         errorElement.addEventListener('click', () => errorElement.remove());
     }
@@ -184,12 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const fov = camera.fov * (Math.PI / 180);
             let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
             cameraZ *= 1.5; // Zoom out a bit
-            
+
             // Position camera at the side of the dog
             camera.position.set(center.x + cameraZ, center.y + size.y / 2, center.z);
             camera.lookAt(center);
             controls.target.copy(center);
-            
+
             // Rotate the camera slightly to get a better side view
             camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 6);
         }
