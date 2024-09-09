@@ -9,21 +9,6 @@
 <body>
     <div id="app">
         <h1>Pet and Feed the Virtual Dog</h1>
-        {% if current_user.is_authenticated %}
-            <p>Welcome, {{ current_user.username }}! 
-               <a href="{{ url_for('logout') }}">Logout</a>
-               {% if not current_user.is_subscribed() %}
-               | <a href="{{ url_for('subscribe') }}">Subscribe</a>
-               {% endif %}
-            </p>
-        {% else %}
-            <p>
-                <a href="{{ url_for('login') }}">Login</a> |
-                <a href="{{ url_for('register') }}">Register</a>
-            </p>
-        {% endif %}
-        
-        {% if current_user.is_authenticated and current_user.is_subscribed() %}
         <div id="controls">
             <label for="breed-select">Choose a breed:</label>
             <select id="breed-select">
@@ -49,19 +34,6 @@
                 <div id="happiness-text">Happiness</div>
             </div>
         </div>
-        {% else %}
-        <div id="subscription-prompt">
-            <h2>Subscribe to Access All Features!</h2>
-            <p>Enjoy the full experience of petting and interacting with our virtual 3D dog by subscribing today.</p>
-            <ul>
-                <li>Choose from multiple dog breeds</li>
-                <li>Customize your dog's color</li>
-                <li>Adjust your dog's size</li>
-                <li>Feed your dog and increase its happiness</li>
-            </ul>
-            <a href="{{ url_for('subscribe') }}" class="btn btn-primary">Subscribe Now</a>
-        </div>
-        {% endif %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
