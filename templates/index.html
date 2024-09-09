@@ -9,14 +9,30 @@
 <body>
     <div id="app">
         <h1>Pet the Virtual Dog</h1>
-        <div id="scene-container"></div>
-        <div id="progress-container">
-            <div id="progress-bar"></div>
-            <div id="full-text">FULL</div>
+        <div id="controls">
+            <label for="breed-select">Choose a breed:</label>
+            <select id="breed-select">
+                <option value="dog">Default Dog</option>
+                <option value="bulldog">Bulldog</option>
+                <option value="labrador">Labrador</option>
+                <option value="poodle">Poodle</option>
+                <option value="husky">Husky</option>
+            </select>
+            <label for="color-picker">Choose a color:</label>
+            <input type="color" id="color-picker" value="#ffffff">
+            <label for="size-slider">Adjust size:</label>
+            <input type="range" id="size-slider" min="0.1" max="2" step="0.1" value="1">
+        </div>
+        <div id="scene-container">
+            <div id="progress-container">
+                <div id="progress-bar"></div>
+                <div id="full-text">FULL</div>
+            </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="{{ url_for('static', filename='js/dog_model.js') }}"></script>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
