@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual 3D Dog Petting</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="scene-container">
+            <div id="title">Pet the Pup 🐶💘</div>
+            <div id="progress-container">
+                <div id="progress-bar"></div>
+                <div id="full-text">FULL</div>
+            </div>
+            <div id="happiness-meter">
+                <div id="happiness-bar"></div>
+                <div id="happiness-text">Happy</div>
+            </div>
+            <button id="feed-button" aria-label="Feed the dog">Feed Dog 🍖</button>
+            <div id="camera-controls">
+                <button id="camera-head" aria-label="View dog's head">Head</button>
+                <button id="camera-neck" aria-label="View dog's neck">Neck</button>
+                <button id="camera-back" aria-label="View dog's back">Back</button>
+                <button id="camera-belly" aria-label="View dog's belly">Belly</button>
+                <button id="camera-center" aria-label="Center view">Center</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="static/js/dog_model.js"></script>
+    <script src="static/js/app.js"></script>
+</body>
+</html>

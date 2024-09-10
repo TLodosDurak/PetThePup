@@ -1,123 +1,100 @@
-html, body {
-    width: 100vw;
-    height: 100vh;
+body, html {
     margin: 0;
     padding: 0;
-    overflow: hidden;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    height: 100%;
+    overflow: hidden;
 }
 
 #app {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-#controls {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 #scene-container {
-    width: 800px;
-    height: 600px;
-    border: 2px solid #333;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
+    width: 100vw;
+    height: 100vh;
     position: relative;
+    overflow: hidden;
+}
+
+#title {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+#feed-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#feed-button:hover {
+    background-color: #45a049;
+}
+
+#progress-container, #happiness-meter {
+    position: absolute;
+    width: 30px;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 10;
 }
 
 #progress-container {
-    position: absolute;
     top: 20px;
     right: 20px;
-    width: 30px;
-    height: 200px;
-    background-color: rgba(221, 221, 221, 0.7);
-    border-radius: 10px;
-    overflow: hidden;
-    z-index: 1000;
-}
-
-#progress-bar {
-    width: 100%;
-    background: linear-gradient(to top, #4CAF50, #45a049);
-    transition: height 0.1s linear;
-    position: absolute;
-    bottom: 0;
-}
-
-#full-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
-    font-weight: bold;
-    font-size: 18px;
-    color: #FFD700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    z-index: 1001;
-    display: none;
 }
 
 #happiness-meter {
-    position: absolute;
     top: 20px;
     left: 20px;
-    width: 30px;
-    height: 200px;
-    background-color: rgba(221, 221, 221, 0.7);
-    border-radius: 10px;
-    overflow: hidden;
-    z-index: 1000;
+}
+
+#progress-bar, #happiness-bar {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    transition: height 0.3s;
+}
+
+#progress-bar {
+    background: linear-gradient(to top, #4CAF50, #45a049);
 }
 
 #happiness-bar {
-    width: 100%;
     background: linear-gradient(to top, #FF69B4, #FF1493);
-    transition: height 0.1s linear;
-    position: absolute;
-    bottom: 0;
-    height: 50%; /* Initial happiness level */
 }
 
-#happiness-text {
+#full-text, #happiness-text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-90deg);
     font-weight: bold;
     font-size: 14px;
-    color: #333;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-    z-index: 1001;
-}
-
-#feed-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#feed-button:hover {
-    background-color: #45a049;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .sparkle {
@@ -136,6 +113,49 @@ h1 {
     100% { transform: scale(0); opacity: 0; }
 }
 
-#scene-container:hover {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 100 100"><text y="50%" font-size="90">✋</text></svg>'), auto;
+#camera-controls {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    left: 10px;
+    bottom: 150px;
+}
+
+#camera-controls button {
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#camera-controls button:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+#feed-button {
+    position: absolute;
+    right: 10px;
+    bottom: 100px;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#feed-button:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 767px) {
+    #camera-controls {
+        flex-direction: column;
+    }
+    #camera-controls {
+        bottom: 70px;
+    }
 }

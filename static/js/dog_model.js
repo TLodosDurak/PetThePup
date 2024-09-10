@@ -2,7 +2,7 @@ function loadDogModel(scene, breed = 'dog') {
     console.log(`Loading dog model for breed: ${breed}`);
     return new Promise((resolve, reject) => {
         const loader = new THREE.GLTFLoader();
-        const modelPath = `/static/models/${breed}.glb`;
+        const modelPath = `static/models/${breed}.glb`;
         
         loader.load(modelPath,
             (gltf) => {
