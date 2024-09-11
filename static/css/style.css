@@ -63,12 +63,12 @@ body, html {
 
 #progress-container {
     top: 20px;
-    right: 20px;
+    right: 35px;
 }
 
 #happiness-meter {
     top: 20px;
-    left: 20px;
+    left: 35px;
 }
 
 #progress-bar, #happiness-bar {
@@ -118,8 +118,8 @@ body, html {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    left: 10px;
-    bottom: 150px;
+    left: 20px;
+    top: 230px; /* Positioned below the happiness meter */
 }
 
 #camera-controls button {
@@ -154,8 +154,6 @@ body, html {
 @media (max-width: 767px) {
     #camera-controls {
         flex-direction: column;
-    }
-    #camera-controls {
-        bottom: 70px;
+        top: 230px; /* Ensure it stays below the happiness meter on mobile */
     }
 }

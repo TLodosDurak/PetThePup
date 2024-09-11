@@ -456,24 +456,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const isMobile = window.innerWidth < 768;
         const cameraControls = document.getElementById('camera-controls');
         const feedButton = document.getElementById('feed-button');
+        const happinessMeter = document.getElementById('happiness-meter');
+
+        // Position camera controls below happiness meter
+        const happinessMeterRect = happinessMeter.getBoundingClientRect();
+        cameraControls.style.left = '20px';
+        cameraControls.style.top = `${happinessMeterRect.bottom + 10}px`;
+        cameraControls.style.flexDirection = 'column';
 
         if (isMobile) {
-            cameraControls.style.flexDirection = 'column';
-            cameraControls.style.left = '10px';
-            cameraControls.style.bottom = '100px';
             feedButton.style.right = '10px';
-            feedButton.style.bottom = '100px';
+            feedButton.style.bottom = '20px';
         } else {
-            cameraControls.style.flexDirection = 'column';
-            cameraControls.style.left = '10px';
-            cameraControls.style.bottom = '100px';
-            feedButton.style.right = '10px';
-            feedButton.style.bottom = '100px';
+            feedButton.style.right = '20px';
+            feedButton.style.bottom = '20px';
         }
     }
 
-    // Call updateUILayout on initial load
+    // Call updateUILayout on initial load and window resize
     updateUILayout();
+    window.addEventListener('resize', updateUILayout);
 
     function setupCameraControls() {
         const cameraHead = document.getElementById('camera-head');
